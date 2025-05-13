@@ -1,0 +1,85 @@
+@inject SignInManager<IdentityUser> SignInManager
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3">
+    <div class="container-fluid">
+        <!-- Left: Brand -->
+        <a class="navbar-brand fw-bold fs-4" asp-area="" asp-controller="Home" asp-action="Index">
+            <i class="fa-solid fa-dice-one me-2 text-warning"></i> Pro Manage One
+        </a>
+
+        <!-- Toggler for mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar content -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+
+            <!-- Center: Search Form -->
+            <div class="mx-auto my-2 my-lg-0" style="width: 100%; max-width: 700px;">
+                <form class="d-flex" asp-area="" asp-controller="Home" asp-action="GeneralSearch" method="get">
+                    <div class="input-group w-100">
+                        <input class="form-control" type="text" placeholder="Search Projects or Tasks..." name="searchString" />
+                        <select class="form-select" name="searchType" required>
+                            <option value="" disabled selected>Select Type</option>
+                            <option value="Projects">Projects</option>
+                            <option value="Tasks">Tasks</option>
+                        </select>
+                        <button class="btn btn-outline-warning" type="submit">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Right: Nav Links -->
+            <ul class="navbar-nav ms-auto align-items-center gap-2 mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                        <i class="fa-solid fa-house me-1"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">
+                        <i class="fas fa-info-circle me-1"></i> About
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="ProjectManagement" asp-controller="Project" asp-action="Index">
+                        <i class="fas fa-tasks me-1"></i> Projects
+                    </a>
+                </li>
+
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index">
+                            <i class="fa-solid fa-user-cog me-1"></i> Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <form asp-area="Identity" asp-page="/Account/Logout" method="post" class="d-inline">
+                            <button type="submit" class="nav-link btn btn-link text-decoration-none">
+                                <i class="fa fa-sign-out-alt me-1"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">
+                            <i class="fa fa-sign-in-alt me-1"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">
+                            <i class="fa-solid fa-user-plus me-1"></i> Register
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

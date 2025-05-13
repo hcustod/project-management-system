@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center mb-5 mt-5">
+    <h1 class="display-4 fw-bold">Pro Manage One</h1>
+    <p class="lead text-muted">An Emerging Project and Task Management Web Application</p>
+</div>
+
+<div class="row justify-content-center">
+
+    <!-- Card 1: Projects -->
+    <div class="col-md-5 mb-4">
+        <div class="card shadow-lg border-0 h-100 p-3">
+            <div class="card-body text-start">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="fas fa-tasks fa-2x me-3 text-primary"></i>
+                    <h4 class="card-title m-0">Project Management</h4>
+                </div>
+                <hr />
+                <p class="card-text">
+                    Create, edit, and manage all your course-related projects in one place.
+                    Track start and end dates, add descriptions, and keep your academic workload structured.
+                    Perfect for organizing semester-long assignments and team work.
+                </p>
+                <a asp-area="ProjectManagement" asp-controller="Project" asp-action="Index" class="btn btn-outline-primary mt-2">
+                    View Projects
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 2: About -->
+    <div class="col-md-5 mb-4">
+        <div class="card shadow-lg border-0 h-100 p-3">
+            <div class="card-body text-start">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="fas fa-info-circle fa-2x me-3 text-warning"></i>
+                    <h4 class="card-title m-0">About This App</h4>
+                </div>
+                <hr />
+                <p class="card-text">
+                    This web application was built as part of <strong>COMP2139</strong> to demonstrate full-stack development in ASP.NET Core MVC.
+                    It features modern responsive layout, database interaction via Entity Framework, and secure identity-based login.
+                </p>
+                <a asp-area="" asp-controller="Home" asp-action="About" class="btn btn-outline-warning mt-2">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>

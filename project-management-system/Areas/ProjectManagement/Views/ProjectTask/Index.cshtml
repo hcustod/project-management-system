@@ -1,0 +1,80 @@
+@model IEnumerable<ProjectTask>
+
+@{
+    ViewData["Title"] = "Task List";
+
+    bool searchPerformed = ViewData["SearchPerformed"] as bool? ?? false;
+    string searchString = ViewData["SearchString"] as string ?? "";
+}
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-warning">
+            <i class="fas fa-tasks me-2"></i>Task List
+        </h2>
+        <div class="d-flex gap-2">
+            <a asp-area="ProjectManagement" asp-controller="ProjectTask" asp-action="Create" asp-route-projectId="@ViewBag.ProjectId" class="btn btn-success">
+                <i class="fa fa-plus-circle me-1"></i> New Task
+            </a>
+            <a asp-controller="Project" asp-action="Index" class="btn btn-secondary">
+                <i class="fa fa-arrow-left me-1"></i> Return to Projects
+            </a>
+        </div>
+    </div>
+
+    @if (searchPerformed && Model != null && !Model.Any())
+    {
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-circle me-1"></i> No matching tasks found.
+        </div>
+    }
+
+    @if (Model.Any())
+    {
+        <div class="card shadow">
+            <div class="card-body">
+                <table class="table table-hover align-middle">
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <th>Task ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Project ID</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var task in Model)
+                        {
+                            <tr>
+                                <td>@task.ProjectTaskId</td>
+                                <td>@task.Title</td>
+                                <td>@task.Description</td>
+                                <td>@task.ProjectId</td>
+                                <td>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <a asp-action="Details" asp-route-id="@task.ProjectTaskId" class="btn btn-sm btn-outline-info">
+                                            <i class="fas fa-eye me-1"></i> Details
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@task.ProjectTaskId" class="btn btn-sm btn-outline-warning">
+                                            <i class="fas fa-edit me-1"></i> Edit
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@task.ProjectTaskId" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash me-1"></i> Delete
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else if (!searchPerformed)
+    {
+        <div class="alert alert-warning">
+            <i class="fas fa-info-circle me-1"></i> No tasks available for this project.
+        </div>
+    }
+</div>

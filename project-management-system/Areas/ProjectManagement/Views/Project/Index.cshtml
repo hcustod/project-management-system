@@ -1,0 +1,76 @@
+@model List<Project>
+
+@{
+    ViewData["Title"] = "Projects";
+    Layout = "_Layout";
+}
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-warning"><i class="fas fa-folder-open me-2"></i>Project Listing</h2>
+        <a asp-controller="Project" asp-action="Create" class="btn btn-success">
+            <i class="fa fa-plus-circle me-1"></i> Create New Project
+        </a>
+    </div>
+
+    @if (ViewBag.SearchPerformed != null && (ViewBag.SearchPerformed as bool?) == true && !Model.Any())
+    {
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-circle me-1"></i> No matching projects found.
+        </div>
+    }
+
+    @if (Model.Any())
+    {
+        <div class="card shadow">
+            <div class="card-body">
+                <table class="table table-hover align-middle">
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Summary</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var project in Model)
+                        {
+                            <tr>
+                                <td>@project.ProjectId</td>
+                                <td>@Html.DisplayFor(model => project.Name, "ProjectName")</td>
+                                <td>@Html.DisplayFor(model => project.Description, "ProjectDescription")</td>
+                                <td>
+                                    @await Component.InvokeAsync("ProjectSummary", new { projectId = project.ProjectId })
+                                </td>
+                                <td>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <a asp-action="Details" asp-route-id="@project.ProjectId" class="btn btn-sm btn-outline-info">
+                                            <i class="fas fa-eye me-1"></i> Details
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@project.ProjectId" class="btn btn-sm btn-outline-warning">
+                                            <i class="fas fa-edit me-1"></i> Edit
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@project.ProjectId" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash me-1"></i> Delete
+                                        </a>
+                                        <a asp-controller="ProjectTask" asp-action="Index" asp-route-projectId="@project.ProjectId" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-tasks me-1"></i> Tasks
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            <i class="fas fa-info-circle me-1"></i> No projects available.
+        </div>
+    }
+</div>

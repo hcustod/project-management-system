@@ -1,0 +1,56 @@
+@model dynamic
+
+@{
+    ViewData["Title"] = "About";
+
+    var name = "Henrique Custodio";
+    var studentNumber = "101497015";
+    var courseCode = "COMP2139 - Winter 2025";
+    var courseSection = "50272";
+}
+
+<div class="text-center my-5">
+    <h1 class="display-4">About This Application</h1>
+    <p class="lead text-muted">Developed for the <strong>@courseCode</strong> course at George Brown College.</p>
+</div>
+
+<div class="row justify-content-center">
+    
+    <!-- Developer Info -->
+    <div class="col-md-6 mb-4 d-flex">
+        <div class="card shadow-lg flex-fill h-100">
+            <div class="card-body text-start">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="fas fa-user fa-3x text-warning me-3"></i>
+                    <h5 class="card-title m-0">Developer Info</h5>
+                </div>
+                <hr />
+                <p class="card-text"><strong>Name:</strong> @name</p>
+                <p class="card-text"><strong>Student Number:</strong> @studentNumber</p>
+                <p class="card-text"><strong>Course:</strong> @courseCode</p>
+                <p class="card-text"><strong>CRN:</strong> @courseSection</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Purpose -->
+    <div class="col-md-6 mb-4 d-flex">
+        <div class="card shadow-lg flex-fill h-100">
+            <div class="card-body text-start">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="fas fa-lightbulb fa-3x text-primary me-3"></i>
+                    <h5 class="card-title m-0">Project Overview</h5>
+                </div>
+                <hr />
+                <p class="card-text">
+                    <strong>Pro Manage One</strong> is a web-based project and task management system built with ASP.NET Core MVC.
+                    It leverages Entity Framework, user authentication, areas, and partial views for logical separation of functionality.
+                </p>
+                <p class="card-text">
+                    The app supports core features like project tracking, task assignment, search functionality, and responsive design.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>

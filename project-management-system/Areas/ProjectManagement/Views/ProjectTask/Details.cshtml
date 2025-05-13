@@ -1,0 +1,52 @@
+@model ProjectTask
+
+@{
+    ViewData["Title"] = "Task Details";
+}
+
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h2 class="text-info fw-bold text-warning">@ViewData["Title"]</h2>
+        <p class="lead text-muted">Here are the details for this task.</p>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3 fw-semibold text-dark">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+
+                <dt class="col-sm-3 fw-semibold text-dark">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt class="col-sm-3 fw-semibold text-dark">
+                    Project
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Project.Name)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.ProjectTaskId" class="btn btn-primary">
+            <i class="fas fa-edit me-1"></i> Edit
+        </a>
+        <a asp-action="Index" asp-route-projectId="@Model.ProjectId" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-1"></i> Back to List
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

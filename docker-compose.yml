@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:17
+    container_name: projectdb
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - projectdb_data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT}:5432"
+
+  app: 
+    build:
+      context: ./project-management-system
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings_DefaultConnection=Host=db;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password={POSTGRES_PASSWORD}
+    ports:
+      - "${APP_PORT}:8080"
+
+volumes:
+  projectdb_data:
+  
